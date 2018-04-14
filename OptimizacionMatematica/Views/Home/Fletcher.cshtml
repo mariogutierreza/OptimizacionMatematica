@@ -1,0 +1,46 @@
+﻿@model SolvedModel
+@{
+    ViewData["Title"] = "Fletcher-Powell";
+}
+
+<div class="row">
+        <h1>Fletcher-Powell</h1>
+    <div class="col-sm-6" style="font-size: 16px; line-height: 1.5; border-right: 1px dotted #000000">
+        <p style="margin: 0;">
+            Este es un método para minimizar una función <i>f</i> en R<sup>n</sup>. Consiste en generar
+            aproximaciones sucesivas de la inversa del Hessiano de la función <i>f</i>.<br />
+            Definamos
+        </p>
+        <p>
+            g<sub>k</sub> := ∇<i>f</i>(x<sub>k</sub>) <br />
+            H<sub>k</sub> := aproximaciones de la inversa del Hessiano en x<sub>k</sub> <br />
+            d<sub>k</sub> := −H<sub>k</sub>g<sub>k</sub> <br />
+            q<sub>k</sub> := g<sub>k+1</sub> − g<sub>k</sub> <br />
+            p<sub>k</sub> := x<sub>k</sub>+1 − x<sub>k</sub> <br />
+            En cada iteración se genera <br />
+            x<sub>k+1</sub> = x<sub>k</sub> + α<sub>k</sub>d<sub>k</sub>
+        </p>
+        <p>
+            con α<sub>k</sub> = arg mín<sub>α≥0</sub> <i>f</i>(x<sub>k</sub> + αd<sub>k</sub>). <br />
+            El procedimiento es el siguiente: <br />
+            Paso 0: Partir con cualquier matriz H<sub>0</sub> definida positiva y algún x<sub>0</sub>, con k = 0 <br />
+            Paso 1: Tomar d<sub>k</sub> = −H<sub>k</sub>g<sub>k</sub>. <br />
+            Paso 2: Calcular α<sub>k</sub> = arg mín<sub>α≥0</sub> <i>f</i>(x<sub>k</sub> + αd<sub>k</sub>) y obtener x<sub>k+1</sub>, p<sub>k</sub> y g<sub>k+1</sub> <br />
+            Paso 3: Tomar q<sub>k</sub> = g<sub>k+1</sub> − g<sub>k</sub> <br />
+            y   <img class="text-center" src="~/images/formula.JPG" /> <br />
+            k = k + 1 y retornar al Paso 1
+
+        </p>
+    </div>
+
+    <div class="col-sm-6" style="font-size: 16px;">
+        <p>Optimización Fletcher</p>
+        <p>Encontrar el mínimo de función: F(X, Y) = X - Y + 2X<sup>2</sup> + 2XY + Y<sup>2</sup></p>
+        <p>X = 0</p>
+        <p>Y = 0</p>
+        <p>Tolerancia = 0.01</p>
+        <p>Óptimo en: (@string.Join(",", Model.X))</p>
+        <p>F(@string.Join(",", Model.X)) = @Model.Function</p>
+        <p>Iteraciones = @Model.Iterations</p>
+    </div>
+</div>

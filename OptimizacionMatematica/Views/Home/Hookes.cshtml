@@ -1,0 +1,55 @@
+﻿@model SolvedModel
+@{
+    ViewData["Title"] = "Hookes-Jeeves";
+}
+<div class="row">
+    <h1>Método de Hookes - Jeeves</h1>
+    <div class="col-sm-6" style="font-size: 16px; line-height: 1.5; border-right: 1px dotted #000000">
+        <p style="margin: 0;">
+            Este método data de 1961 y consiste en tres tipos de procedimientos: exploración,
+            cambio de punto base y movimiento de patrón. <br />
+            <ol></ol>
+            Algoritmo de Hooke & Jeeves <br />
+            1. Elegir un punto inicial x, un valor &isin; de control de fin de algoritmo, una longitud
+            de paso h >= &isin; y un factor de aceleración &alpha;.<br />
+            2. Etapa de Exploración. Al comienzo de esta etapa x es el punto base Sea x = x
+            y j = 1. Calcular f(x)<br />
+            a) Evaluar f(x + he^j), donde e^j es el vector unitario en la dirección de la
+            variable Xj .<br />
+            Si f(x + he^j) < f(x), entonces hacer x = x + he^j.<br />
+            En caso contrario, evaluar f(x - he^j). Si f(x -he^j) < f(x), entonces
+            hacer x = x - he^j.<br />
+            b) Si j = n, ir al paso 3 (x es el punto obtenido al final de la etapa de exploración). En caso contrario, hacer j = j + 1 y volver al paso 2a).<br />
+
+            3. Si x = x, no se ha conseguido reducir el valor de f(x) en la etapa de exploración.
+            Si h < &isin;, PARAR. El punto x es la aproximación al mínimo de la función.<br />
+            En caso contrario, hacer h = h/10 y volver al paso 2 (se reinicia la etapa de
+            exploración con la nueva longitud de paso).
+            Si x &ne; x (f(x) < f(x)), ir al paso 4.
+            4. Movimiento de patrón. Puesto que hemos mejorado al movernos de x a x,
+            realizamos un nuevo movimiento siguiendo este patrón. Sea
+            y = x + &alpha;(x - x)
+            Realizamos una etapa de exploración sobre el punto y, obteniendo un nuevo
+            punto y.
+            Si f(y) > f(x), entonces el movimiento de patrón ha empeorado el mejor
+            valor obtenido, hacemos un cambio de punto base, tomando x = x y
+            volvemos al paso 2 (obsérvese que esta opción conduce a realizar una nueva
+            etapa de exploración en la que el punto base es x).
+            En caso contrario, hacer x = y, x = y y volver al paso 3 (en este caso, el
+            movimiento de patrón de x a y ha sido satisfactorio y en el paso 3 decidimos
+            si hacemos un nuevo movimiento de patrón o volvemos a la etapa de
+            exploración).
+        </p>
+    </div>
+
+    <div class="col-sm-6" style="font-size: 16px;">
+        <p>Optimización Hookes - Jeeves</p>
+        <p>Encontrar el mínimo de función: F(X, Y) = X - Y + 2X<sup>2</sup> + 2XY + Y<sup>2</sup></p>
+        <p>X = 0</p>
+        <p>Y = 0</p>
+        <p>Tolerancia = @Model.Tolerace</p>
+        <p>Óptimo en: (@string.Join(",", Model.X))</p>
+        <p>F(@string.Join(",", Model.X)) = @Model.Function</p>
+        <p>Iteraciones = @Model.Iterations</p>
+    </div>
+</div>
